@@ -11,8 +11,10 @@ import java.util.Set;
 
 public class NameTagToggle implements CommandExecutor {
     private Team team;
+    private final Config con;
 
-    public NameTagToggle( Scoreboard scoreboard) {
+    public NameTagToggle(Scoreboard scoreboard, Config config) {
+        con = config;
         team = scoreboard.getTeam("marumasa.HideNameTag");
 
         if (team == null)
@@ -30,11 +32,11 @@ public class NameTagToggle implements CommandExecutor {
         for (String Name : Entries)
             if (Name.equals(senderPlayerName)) {
                 team.removeEntry(senderPlayerName);
-                senderPlayer.sendMessage("ネームタグが表示に設定されました");
+                senderPlayer.sendMessage(con.showMessage);
                 return true;
             }
 
-        senderPlayer.sendMessage("ネームタグが非表示に設定されました");
+        senderPlayer.sendMessage(con.hideMessage);
         team.addEntry(senderPlayerName);
         return true;
     }

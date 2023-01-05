@@ -9,8 +9,9 @@ public final class minecraft extends JavaPlugin {
     @Override
     public void onEnable() {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Config config = new Config(this);
 
-        getCommand("nttoggle").setExecutor(new NameTagToggle(scoreboard));
+        getCommand("nttoggle").setExecutor(new NameTagToggle(scoreboard,config));
     }
 
     @Override

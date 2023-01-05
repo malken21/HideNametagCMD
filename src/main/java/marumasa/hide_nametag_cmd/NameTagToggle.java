@@ -10,15 +10,15 @@ import org.bukkit.scoreboard.Team;
 import java.util.Set;
 
 public class NameTagToggle implements CommandExecutor {
-    private final minecraft mc;
-    private final Scoreboard sb;
-    final Team team;
+    private Team team;
 
-    public NameTagToggle(minecraft minecraft, Scoreboard scoreboard) {
-        mc = minecraft;
-        sb = scoreboard;
-        team = sb.registerNewTeam("marumasa.HideNameTag");
+    public NameTagToggle( Scoreboard scoreboard) {
+        team = scoreboard.getTeam("marumasa.HideNameTag");
 
+        if (team == null)
+            team = scoreboard.registerNewTeam("marumasa.HideNameTag");
+
+        team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
     }
 
     @Override
@@ -27,13 +27,13 @@ public class NameTagToggle implements CommandExecutor {
         final String senderPlayerName = senderPlayer.getName();
         final Set<String> Entries = team.getEntries();
 
-        for (String Name : Entries) {
+        for (String Name : Entries)
             if (Name.equals(senderPlayerName)) {
                 team.removeEntry(senderPlayerName);
                 senderPlayer.sendMessage("ネームタグが表示に設定されました");
                 return true;
             }
-        }
+
         senderPlayer.sendMessage("ネームタグが非表示に設定されました");
         team.addEntry(senderPlayerName);
         return true;

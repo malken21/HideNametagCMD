@@ -1,2 +1,2 @@
 # Minecraft_HideNametagCMD_Spigot
-Spigot 1.19.2
+"/nttoggle"でネームタグの表示・非表示を切り替えられるコマンドを追加する、Spigot 1.19.2のプラグイン。
